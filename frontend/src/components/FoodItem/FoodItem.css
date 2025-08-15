@@ -80,6 +80,12 @@
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.3s;
-right: 0;
-
+  right: 0;
+}
+.read-more{ 
+  color: #2a9d8f;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  right: 0;
 }

@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 
 function FoodItem({ id, name, price, description, image }) {
+  const [readMore, setReadMore] = useState(false);
+  const shortDescription = readMore ? ` ${description}` : `${description.slice(0, 50)}...`;
+
+  const toggleReadMore = () => {
+    setReadMore(!readMore);
+  };
+
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
 
@@ -11,8 +18,8 @@ function FoodItem({ id, name, price, description, image }) {
     let speech = new SpeechSynthesisUtterance(); // create a new speech object which will store , language, pitch,etc
     speech.text = description; // the text to be read from description
     // speech.lang = "en-US";  // language will be english
-    speech.lang = "hi-IN";  // language will be hindi
-    speech.volume = 1;  // volume of speech
+    speech.lang = "hi-IN"; // language will be hindi
+    speech.volume = 1; // volume of speech
     speech.rate = 1; // speed of speech
     speech.pitch = 1; // pitch of voice or tone
     window.speechSynthesis.speak(speech); //triggers the system's
@@ -55,7 +62,12 @@ function FoodItem({ id, name, price, description, image }) {
           <p>{name}</p>
           <img src={assets.rating_starts} alt="ratings" />
         </div>
-        <p className="food-item-desc">{description.slice(0, 50)}...</p>
+        <p onClick={toggleReadMore} className="food-item-desc">
+          <span>{shortDescription}</span>{" "}
+          <span className="read-more">
+            {readMore ? "Read Less" : "Read More"}
+          </span>
+        </p>
         <p className="food-item-price">${price}</p>
         <div className="speak">
           <button className="speak-btn" onClick={handleSpeak}>
