@@ -1,0 +1,128 @@
+.contact-container {
+  background-color: #f9fafb;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.contact-card {
+  max-width: 1024px;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.contact-header {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
+  text-align: center;
+  margin: 0px 0 40px -300px;
+}
+
+.contact-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .contact-flex {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.contact-form-section {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contact-form-section {
+    width: 50%;
+    padding-right: 1rem;
+  }
+}
+
+.contact-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  border-color: #10b981;
+}
+
+.contact-error {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ef4444;
+}
+
+.contact-button {
+  width: 100%;
+  background-color: red;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: rgb(16, 240, 76);
+  color: black;
+}
+
+.contact-info-section {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contact-info-section {
+    width: 50%;
+    padding-left: 1rem;
+  }
+}
+
+.contact-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
