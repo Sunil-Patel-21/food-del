@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./Sidebar.css";
 import { assets } from "../../assets/admin_assets/assets";
 import { NavLink } from "react-router-dom";
@@ -18,6 +18,10 @@ function Sidebar() {
         <NavLink to={"/orders"} className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Orders</p>
+        </NavLink>
+        <NavLink to={"/usersInfo"} className="sidebar-option">
+          <img src={assets.order_icon} alt="" />
+          <p>UsersInfo</p>
         </NavLink>
       </div>
     </div>

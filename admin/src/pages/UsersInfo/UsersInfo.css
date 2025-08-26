@@ -1,0 +1,36 @@
+.users-container {
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.total-users {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.users-table th,
+.users-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.users-table thead {
+  background-color: #f0f0f0;
+}
+
+.users-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
