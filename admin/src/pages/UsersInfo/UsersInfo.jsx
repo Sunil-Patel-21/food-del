@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./UsersInfo.css";
 
-function UsersInfo() {
+function UsersInfo({url}) {
   const [users, setUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // const res = await axios.get(`${url}/api/user/getAllUsers`); 
-        const res = await axios.get("http://localhost:4000/api/user/getAllUsers"); 
+        const res = await axios.get(`${url}/api/user/getAllUsers`); 
+        // const res = await axios.get("http://localhost:4000/api/user/getAllUsers"); 
         if (res.data.success) {
           setUsers(res.data.users);
           setTotalUsers(res.data.totalUsers);
