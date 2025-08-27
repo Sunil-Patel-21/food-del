@@ -29,7 +29,7 @@ function UsersInfo({ url }) {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      const res = await axios.delete(`http://localhost:4000/api/user/deleteUser/${id}`);
+      const res = await axios.delete(`${url}/api/user/deleteUser/${id}`);
       if (res.data.success) {
         alert("User deleted successfully");
         fetchUsers(); // refresh list after deletion
