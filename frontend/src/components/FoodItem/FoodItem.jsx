@@ -68,7 +68,7 @@ function FoodItem({ id, name, price, description, image }) {
             {readMore ? "Read Less" : "Read More"}
           </span>
         </p>
-        <p className="food-item-price">${price}</p>
+        <p className="food-item-price">₹{price}</p>
         <div className="speak">
           <button className="speak-btn" onClick={handleSpeak}>
             Speak Desc
