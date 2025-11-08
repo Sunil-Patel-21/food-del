@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-// import { food_list } from "../assets/frontend_assets/assets";
-
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
@@ -10,6 +8,7 @@ const StoreContextProvider = (props) => {
   const url = "https://food-del-backend-e7ym.onrender.com";
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ Added loading state
 
   const addToCart = async(itemId) => {
     if (!cartItems[itemId]) {
@@ -23,8 +22,15 @@ const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(`${url}/api/food/list`);
-    setFoodList(response.data.data);
+    try {
+      setLoading(true); // ✅ Start loading
+      const response = await axios.get(`${url}/api/food/list`);
+      setFoodList(response.data.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false); // ✅ Stop loading
+    }
   };
 
   useEffect(() => {
@@ -32,7 +38,6 @@ const StoreContextProvider = (props) => {
       await fetchFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
-        // await loadCartData(localStorage.getItem("token"));
       }
     }
     loadData();
@@ -45,23 +50,20 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // const loadCartData = async (token)=>{
-  //   const response = await axios.post(`${url}/api/cart/get`,{},{headers:{token}});
-  //   setCartItems(response.data.cartData);
-  // }
-
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item); //product is available in food_list
+        let itemInfo = food_list.find((product) => product._id === item);
         totalAmount += itemInfo.price * cartItems[item];
       }
     }
     return totalAmount;
   };
+
   const contextValue = {
     food_list,
+    loading, // ✅ send loader state to components
     cartItems,
     setCartItems,
     addToCart,

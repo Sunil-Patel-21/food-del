@@ -3,9 +3,13 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import ButtonLoader from "../ButtonLoader/ButtonLoader"; // ✅ import loader
+
 function LoginPopup({ setShowLogin }) {
   const [currentState, setCurrentState] = useState("Login");
-  const { url,setToken } = useContext(StoreContext);
+  const { url, setToken } = useContext(StoreContext);
+  const [loading, setLoading] = useState(false); // ✅ loading state
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -14,28 +18,33 @@ function LoginPopup({ setShowLogin }) {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ start loader
+
     let newUrl = url;
-    if (currentState === "Login") {
-      newUrl += `/api/user/login`;
-    } else {
-      newUrl += `/api/user/register`;
+    newUrl += currentState === "Login" ? `/api/user/login` : `/api/user/register`;
+
+    try {
+      const response = await axios.post(newUrl, data);
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        alert("✔️ Login Successful!"); // ✅ success message
+        setShowLogin(false);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      alert("Something went wrong. Try again!",error);
     }
-    const response = await axios.post(newUrl, data);
-    if (response.data.success) {
-      setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      setShowLogin(false);
-    }else{
-      alert(response.data.message);
-    }
+
+    setLoading(false); // ✅ stop loader
   };
 
   const onchangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setData((data) => ({
-      ...data,
-      [name]: value,
+    setData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -44,22 +53,17 @@ function LoginPopup({ setShowLogin }) {
       <form className="login-popup-container" onSubmit={onLogin}>
         <div className="login-popup-title">
           <h2>{currentState}</h2>
-          <img
-            src={assets.cross_icon}
-            alt=""
-            onClick={() => setShowLogin(false)}
-          />
+          <img src={assets.cross_icon} alt="" onClick={() => setShowLogin(false)} />
         </div>
+
         <div className="login-popup-inputs">
-          {currentState === "Login" ? (
-            <></>
-          ) : (
+          {currentState === "Signup" && (
             <input
               name="name"
               onChange={onchangeHandler}
               value={data.name}
               type="text"
-              placeholder="your name"
+              placeholder="Your name"
               required
             />
           )}
@@ -69,33 +73,40 @@ function LoginPopup({ setShowLogin }) {
             onChange={onchangeHandler}
             value={data.email}
             type="email"
-            placeholder="your email"
+            placeholder="Your email"
             required
           />
+
           <input
             name="password"
             onChange={onchangeHandler}
             value={data.password}
             type="password"
-            placeholder="your password"
+            placeholder="Your password"
             required
           />
         </div>
-        <button type="submit">
-          {currentState === "Signup" ? "Create Account" : "Login"}
-        </button>
-        <div className="login-popup-condition">
+        
+                <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing, I agree to the terms and conditions.</p>
         </div>
+
+        {/* ✅ Show loader inside button while submitting */}
+        <button type="submit" disabled={loading} style={{ opacity: loading ? 0.7 : 1 }}>
+          {loading ? <ButtonLoader /> : currentState === "Signup" ? "Create Account" : "Login"}
+        </button>
+
+
+
         {currentState === "Login" ? (
           <p>
-            Create a new account ?{" "}
+            Create a new account?{" "}
             <span onClick={() => setCurrentState("Signup")}>Signup here</span>
           </p>
         ) : (
           <p>
-            Already have an account ?{" "}
+            Already have an account?{" "}
             <span onClick={() => setCurrentState("Login")}>Login here</span>
           </p>
         )}
