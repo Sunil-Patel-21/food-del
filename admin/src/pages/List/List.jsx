@@ -20,6 +20,7 @@ function List({ url }) {
         toast.error("Error in listing food");
       }
     } catch (error) {
+      console.log("Error : ", error);
       toast.error("Something went wrong while fetching data");
     }
     setLoading(false); // stop loader
@@ -27,7 +28,9 @@ function List({ url }) {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
+      const response = await axios.post(`${url}/api/food/remove`, {
+        id: foodId,
+      });
       fetchList();
       if (response.data.success) {
         toast.success(response.data.message);
@@ -35,7 +38,7 @@ function List({ url }) {
         toast.error("Error in removing food");
       }
     } catch (error) {
-      toast.error("Something went wrong while deleting",error);
+      toast.error("Something went wrong while deleting", error);
     }
   };
 
@@ -72,7 +75,7 @@ function List({ url }) {
                 <img src={`${url}/images/` + item.image} alt="" />
                 <p>{item.name}</p>
                 <p>{item.category}</p>
-                <p>${item.price}</p>
+                <p>₹{item.price}</p>
                 <p
                   onClick={() => removeFood(item._id)}
                   className="cursor"

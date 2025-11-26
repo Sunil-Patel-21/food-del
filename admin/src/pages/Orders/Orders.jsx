@@ -7,7 +7,7 @@ function Orders() {
       id: 1,
       customer: "Shubham Patel",
       items: "Veg Pizza, Cold Coffee",
-      total: "$18.50",
+      total: "₹18.50",
       status: "Preparing",
       time: "2025-08-05 11:34 AM"
     },
@@ -15,7 +15,7 @@ function Orders() {
       id: 2,
       customer: "Ravi Kumar",
       items: "Paneer Biryani, Coke",
-      total: "$12.00",
+      total: "₹12.00",
       status: "Delivered",
       time: "2025-08-05 10:10 AM"
     },
@@ -23,7 +23,7 @@ function Orders() {
       id: 3,
       customer: "Ayesha Khan",
       items: "Masala Dosa, Filter Coffee",
-      total: "$9.75",
+      total: "₹9.75",
       status: "Pending",
       time: "2025-08-04 06:45 PM"
     }

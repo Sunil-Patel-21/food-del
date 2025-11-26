@@ -101,7 +101,7 @@ function Navbar({ setShowLogin }) {
 
       {/* Right side */}
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="search" />
+        {/* <img src={assets.search_icon} alt="search" /> */}
         <div className="navbar-search-icon">
           <Link to={"/cart"} onClick={() => speak("Going to Cart Page")}>
             <img src={assets.basket_icon} alt="basket" />
