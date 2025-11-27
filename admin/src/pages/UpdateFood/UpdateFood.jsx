@@ -36,7 +36,7 @@ function UpdateFood({ url }) {
         setOldImage(food.image);
       }
     } catch (error) {
-      console.log("Error ", error);
+      console.log("Error fetching:", error);
       toast.error("Error fetching food item");
     }
   };
@@ -63,23 +63,22 @@ function UpdateFood({ url }) {
     formData.append("category", data.category);
     formData.append("price", Number(data.price));
 
-    // image optional
     if (image) formData.append("image", image);
 
     try {
       const response = await axios.put(
-        `${url}/api/food/update/${id}`,
+        `${url}/api/food/update-food/${id}`,
         formData
       );
 
       if (response.data.success) {
         toast.success("Food updated successfully");
-        navigate("/list"); // redirect to list page
+        navigate("/list");
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log("Error : ", error);
+      console.log("Error:", error);
       toast.error("Something went wrong");
     }
 
