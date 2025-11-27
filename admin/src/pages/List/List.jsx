@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { toast } from "react-toastify";
-import Loader from "../../components/Loader/Loader"; // ✅ import loader
+import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom"; // ✅ add
 
 function List({ url }) {
   const [list, setList] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ loader state
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // ✅ add
 
   const fetchList = async () => {
     try {
-      setLoading(true); // start loader
+      setLoading(true);
       const response = await axios.get(`${url}/api/food/list`);
 
       if (response.data.success) {
@@ -20,25 +22,22 @@ function List({ url }) {
         toast.error("Error in listing food");
       }
     } catch (error) {
-      console.log("Error : ", error);
+      console.log("Error : ",error);  
       toast.error("Something went wrong while fetching data");
     }
-    setLoading(false); // stop loader
+    setLoading(false);
   };
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post(`${url}/api/food/remove`, {
-        id: foodId,
-      });
+      const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
+
       fetchList();
-      if (response.data.success) {
-        toast.success(response.data.message);
-      } else {
-        toast.error("Error in removing food");
-      }
+      if (response.data.success) toast.success(response.data.message);
+      else toast.error("Error in removing food");
     } catch (error) {
-      toast.error("Something went wrong while deleting", error);
+      console.log("error :" , error);
+      toast.error("Something went wrong while deleting");
     }
   };
 
@@ -50,7 +49,6 @@ function List({ url }) {
     <div className="list add flex-col">
       <p>All Foods List</p>
 
-      {/* ✅ Show loader while data loads */}
       {loading ? (
         <div className="flex-center" style={{ marginTop: "50px" }}>
           <Loader size={55} />
@@ -62,13 +60,12 @@ function List({ url }) {
             <b>Name</b>
             <b>Category</b>
             <b>Price</b>
-            <b>Action</b>
+            <b>Edit</b>
+            <b>Delete</b>
           </div>
 
           {list.length === 0 ? (
-            <p style={{ textAlign: "center", marginTop: "20px" }}>
-              No Food Items Found
-            </p>
+            <p style={{ textAlign: "center", marginTop: "20px" }}>No Food Items Found</p>
           ) : (
             list.map((item, index) => (
               <div key={index} className="list-table-format">
@@ -76,12 +73,23 @@ function List({ url }) {
                 <p>{item.name}</p>
                 <p>{item.category}</p>
                 <p>₹{item.price}</p>
+
+                {/* ✅ UPDATE BUTTON */}
+                <p
+                  className="cursor"
+                  style={{ color: "blue" }}
+                  onClick={() => navigate(`/update-food/${item._id}`)}
+                >
+                  <MdEdit size={22} />
+                </p>
+
+                {/* DELETE */}
                 <p
                   onClick={() => removeFood(item._id)}
                   className="cursor"
                   style={{ color: "red" }}
                 >
-                  <MdDeleteForever size={22} id="deleteIcon" />
+                  <MdDeleteForever size={22} />
                 </p>
               </div>
             ))

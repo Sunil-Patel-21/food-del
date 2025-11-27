@@ -1,0 +1,132 @@
+.update {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px;
+}
+
+.update form {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ---------------------- */
+/* IMAGE UPLOAD SECTION   */
+/* ---------------------- */
+.update-img-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preview-img {
+    width: 180px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.update-img-upload label img {
+    width: 140px;
+    height: 110px;
+    object-fit: contain;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #fafafa;
+}
+
+.update-img-upload label img:hover {
+    border-color: #58b4ff;
+    background: #eef8ff;
+}
+
+/* ---------------------- */
+/* INPUT FIELDS           */
+/* ---------------------- */
+.update-input-group input,
+.update-input-group textarea,
+.update-category-price select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: #fafafa;
+    transition: 0.2s;
+}
+
+.update-input-group input:focus,
+.update-input-group textarea:focus,
+.update-category-price select:focus {
+    border-color: #4ca7ff;
+    background: #fff;
+}
+
+.update-category-price {
+    display: flex;
+    gap: 20px;
+}
+
+.update-category-price > div {
+    flex: 1;
+}
+
+/* ---------------------- */
+/* SUBMIT BUTTON          */
+/* ---------------------- */
+.update-btn {
+    padding: 12px;
+    background: #4ca7ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.update-btn:hover {
+    background: #1c8af0;
+}
+
+.update-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------------------- */
+/* RESPONSIVE DESIGN      */
+/* ---------------------- */
+@media (max-width: 600px) {
+    .update form {
+        padding: 20px;
+    }
+
+    .update-category-price {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .preview-img {
+        width: 140px;
+        height: 110px;
+    }
+
+    .update-img-upload label img {
+        width: 120px;
+        height: 90px;
+    }
+}
