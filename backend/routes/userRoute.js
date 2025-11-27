@@ -7,4 +7,6 @@ userRouter.post("/register",registerUser);
 userRouter.post("/login",loginUser);
 userRouter.get("/getAllUsers",getAllUsers)
 userRouter.delete("/deleteUser/:id",deleteUser)
+router.put("/update-food/:id", updateFood);
+
 export default userRouter;
